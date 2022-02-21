@@ -45,7 +45,7 @@ app.get('/data/2.5/weather', get_weather)
 app.get('/v1/weather' ,get_weather)
 app.get('/v1/hello',get_hello)
 app.post('/v1/auth', post_auth)
-app.use('/api-docs', require('./utils/swagger'));
+app.use('/api-docs', require('./swagger.js'));
 
 // To Do : define two other endpoints. 
 
