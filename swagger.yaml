@@ -1,0 +1,130 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "SEM Assignment 4"
+host: "localhost:3000"
+basePath: "/v1"
+tags:
+- name: "Mock Swagger Doc"
+schemes:
+- "http"
+paths:
+  /auth:
+    post:
+      tags:
+      - "Auth"
+      summary: "Username and Password authentication and return a token"
+      consumes:
+        - application/json
+      description: "Accept a username and password and return a mock token"
+      operationId: "loginUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Provide Username and Password"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "successful operation"
+          examples:
+            application/json:
+              token: my secret token
+            
+  /weather:
+    get:
+      tags:
+      - "Mock Weather"
+      summary: "To know the current temperature"
+      description: ""
+      operationId: "getWeather"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "q"
+        in: "query"
+        description: "City name"
+        required: true
+        type: "string"
+      - name: "appid"
+        in: "query"
+        description: "Unique API key"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          examples:
+            application/json:
+                coord:
+                  lon: -123.262
+                  lat: 44.5646
+                weather:
+                - id: 804
+                  main: Clouds
+                  description: overcast clouds
+                  icon: 04d
+                base: stations
+                main:
+                  temp: 279.81
+                  feels_like: 279.81
+                  temp_min: 277.1
+                  temp_max: 284.71
+                  pressure: 1026
+                  humidity: 75
+                visibility: 10000
+                wind:
+                  speed: 0
+                  deg: 0
+                clouds:
+                  all: 100
+                dt: 1642279321
+                sys:
+                  type: 2
+                  id: 2040223
+                  country: US
+                  sunrise: 1642261568
+                  sunset: 1642294710
+                timezone: -28800
+                id: 5720727
+                name: Corvallis
+                cod: 200
+        "400":
+          description: "Invalid q/appid"
+      security:
+        - api_key: []
+  /hello:
+    get:
+      tags:
+      - "Hello"
+      summary: "Greeting"
+      description: ""
+      operationId: "GreetingId"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          examples:
+            application/json:
+              message: Hi! Good Morning :)
+      security:
+       - api_key: []
+definitions:
+  User:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      password:
+        type: "string"
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "Authorize"
+    in: "header"
